@@ -1,12 +1,11 @@
 
-package com.zhaijiong.crawler.dao;
+package com.zhaijiong.crawler.domain;
 
 import org.apache.solr.client.solrj.beans.Field;
 
 /**
  * report代表一份研报实体对象
  */
-
 public class Report {
 
     /*

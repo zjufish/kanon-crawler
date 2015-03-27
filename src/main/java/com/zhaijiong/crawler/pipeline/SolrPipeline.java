@@ -1,7 +1,7 @@
 package com.zhaijiong.crawler.pipeline;
 
-import com.zhaijiong.crawler.dao.Report;
-import com.zhaijiong.crawler.repository.Repository;
+import com.zhaijiong.crawler.domain.Report;
+import com.zhaijiong.crawler.repository.SolrRepository;
 import com.zhaijiong.crawler.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +14,9 @@ import java.util.Map;
 public class SolrPipeline implements Pipeline {
     private static final Logger LOG = LoggerFactory.getLogger(SolrPipeline.class);
 
-    private Repository repository;
+    private SolrRepository repository;
 
-    public SolrPipeline(Repository repository){
+    public SolrPipeline(SolrRepository repository){
         this.repository = repository;
     }
 

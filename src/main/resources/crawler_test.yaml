@@ -1,0 +1,31 @@
+templates:
+  - seed.url: http://stock.10jqka.com.cn/tzjh_list/
+    list.url.rule: http://stock.10jqka.com.cn/tzjh_list/(index_\d{0,2}.shtml)?
+    post.url.rule: http://stock.10jqka.com.cn/\d{8}/.*.shtml
+    source: 同花顺-投资机会
+    category: 新闻
+    items:
+        title: div.art_head
+        date: span#pubtime_baidu
+        content: div.art_main
+#  - seed.url: http://stock.10jqka.com.cn/bkfy_list/
+#    list.url.rule: http://stock.10jqka.com.cn/bkfy_list/(index_\d{0,2}.shtml)?
+#    post.url.rule: http://stock.10jqka.com.cn/\d{8}/.*.shtml
+#    source: 同花顺-行业研究
+#    category: 新闻
+#    items:
+#        title: div.art_head
+#        date: span#pubtime_baidu
+#        content: div.art_main
+
+
+kanon.solr.address: localhost:8983/solr
+kanon.redis.address: localhost
+kanon.redis.port: 6379
+#kanon.zookeeper.quorum: 127.0.0.1:2181
+kanon.zookeeper.quorum: 112.124.60.26:2181
+kanon.zookeeper.znode: /hbase
+
+kanon.site.retrytimes: 3
+kanon.site.sleeptimeMS: 1000
+kanon.spider.thread.count: 5
