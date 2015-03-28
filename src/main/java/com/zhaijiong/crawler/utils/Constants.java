@@ -24,9 +24,13 @@ public class Constants {
     /**
      * crawler url list table
      */
-    public static final String KANON_CRAWLER_TABLE = "kanon.crawler.list.table";
+    public static final String KANON_CRAWLER_TABLE = "kanon.crawler.url.table";
 
     public static final String KANON_CRAWLER_TABLE_DEFAULT = "kanon_crawler_url";
+
+    public static final String KANON_CRAWLER_DATA_TABLE = "kanon.crawler.data.table";
+
+    public static final String KANON_CRAWLER_DATA_TABLE_DEFAULT = "kanon_crawler_data";
 
     public static final String KANON_ZOOKEEPER_QUORUM = "kanon.zookeeper.quorum";
 

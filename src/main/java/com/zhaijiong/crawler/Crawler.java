@@ -1,6 +1,7 @@
 package com.zhaijiong.crawler;
 
 import com.google.common.base.Preconditions;
+import com.zhaijiong.crawler.pipeline.HBasePipeline;
 import com.zhaijiong.crawler.processor.BaseReportProcessor;
 import com.zhaijiong.crawler.scheduler.HBaseDuplicateRemover;
 import com.zhaijiong.crawler.utils.Constants;
@@ -23,17 +24,16 @@ public class Crawler {
     private static Config config;
 
     public void run(String... args) throws Exception {
-//        config = new Config(args[0]);
-        config = new Config("crawler_test.yaml");
+        config = new Config(args[0]);
         List<Template> templates = config.getTemplates();
 
         for (Template template : templates) {
             LOG.info(String.format("start crawler %s", template));
-            crawlerWithTemplate(template);
+            crawler(template);
         }
     }
 
-    private void crawlerWithTemplate(Template template) throws IOException {
+    private void crawler(Template template) throws IOException {
         Site site = Site.me()
                 .setRetryTimes(config.getInt(Constants.KANON_SITE_RETRYTIMES, 3))
                 .setSleepTime(config.getInt(Constants.KANON_SITE_SLEEPTIMEMS, 1000));
@@ -44,12 +44,12 @@ public class Crawler {
         HBaseDuplicateRemover duplicatedRemover = new HBaseDuplicateRemover(template, config);
         scheduler.setDuplicateRemover(duplicatedRemover);
 
-//            SolrPipeline solrPipeline = new SolrPipeline(repository);
+        HBasePipeline pipeline = new HBasePipeline(config);
 
         Spider.create(processor)
                 .addUrl(template.getSeedUrl())
                 .thread(config.getInt(Constants.KANON_SPIDER_THREAD_COUNT, 1))
-                .addPipeline(new ConsolePipeline())
+                .addPipeline(pipeline)
                 .setScheduler(scheduler)
                 .run();
 

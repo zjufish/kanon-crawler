@@ -26,7 +26,7 @@ public class BaseReportProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        System.out.println("process page "+ page.getUrl());
+        LOG.info("process page "+ page.getUrl());
         if(page.getUrl().toString().equals(template.getSeedUrl())){
             List<String> links = page.getHtml().links().regex(template.getListPageURLRule()).all();
             LOG.info("seed:"+page.getUrl()+",links:"+links.size());
