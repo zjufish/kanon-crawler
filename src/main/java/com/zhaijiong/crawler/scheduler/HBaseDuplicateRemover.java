@@ -35,7 +35,7 @@ public class HBaseDuplicateRemover implements DuplicateRemover {
         this.template = template;
         conn = HConnectionManager.createConnection(Utils.getHBaseConf(config));
         this.bloomFilter = rebuildBloomFilter();
-        TABLENAME = config.getStr(Constants.KANON_CRAWLER_TABLE, Constants.KANON_CRAWLER_TABLE_DEFAULT);
+        TABLENAME = config.getStr(Constants.KANON_CRAWLER_URL_TABLE, Constants.KANON_CRAWLER_URL_TABLE_DEFAULT);
     }
 
     @Override
