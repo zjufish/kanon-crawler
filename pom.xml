@@ -11,7 +11,9 @@
     <properties>
         <jdk>1.8</jdk>
         <hbase.version>0.94.27</hbase.version>
-        <!--<hbase.version>0.99.1</hbase.version>-->
+        <!--<hbase.version>0.99.1</hbase.version>--> <!-- artifactID not equal to 0.94 -->
+        <redission.version>1.2.0</redission.version>
+        <jedis.version>2.6.2</jedis.version>
     </properties>
 
     <dependencies>
@@ -73,6 +75,18 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>${redission.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
 
         <!--<dependency>-->
