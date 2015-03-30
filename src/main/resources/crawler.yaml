@@ -1,3 +1,42 @@
+###############################
+#####     solr config
+###############################
+
+kanon.solr.address: localhost:8983/solr
+
+
+###############################
+#####     redis config
+###############################
+
+kanon.redis.address: localhost
+kanon.redis.port: 6399
+kanon.redis.pool.maxsize: 8
+kanon.redis.pool.maxidle: 8
+kanon.redis.pool.maxwait: -1
+kanon.redis.timeout: 3000
+
+###############################
+#####     hbase config
+###############################
+
+kanon.zookeeper.quorum: 127.0.0.1:2181
+kanon.zookeeper.znode: /hbase
+
+
+###############################
+#####     webmagic config
+###############################
+
+kanon.site.retrytimes: 3
+kanon.site.sleeptimeMS: 1000
+kanon.spider.thread.count: 5
+
+
+###############################
+#####     templates config
+###############################
+
 templates:
   - seed.url: http://stock.10jqka.com.cn/tzjh_list/
     list.url.rule: http://stock.10jqka.com.cn/tzjh_list/(index_\d{0,2}.html)?
@@ -17,9 +56,3 @@ templates:
         title: div.art_head
         date: span#pubtime_baidu
         content: div.art_main
-
-kanon.solr.address: localhost:8983/solr
-kanon.redis.address: localhost
-kanon.redis.port: 6379
-kanon.zookeeper.quorum: 127.0.0.1:2181
-kanon.zookeeper.znode: /hbase
