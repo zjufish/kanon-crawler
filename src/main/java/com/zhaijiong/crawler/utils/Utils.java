@@ -1,8 +1,10 @@
 package com.zhaijiong.crawler.utils;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.hash.Hashing;
+import com.zhaijiong.crawler.Config;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HConstants;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -23,6 +25,8 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.zhaijiong.crawler.utils.Constants.*;
 
 public class Utils {
     private static final Logger LOG = LoggerFactory.getLogger(Utils.class);
@@ -139,10 +143,10 @@ public class Utils {
         Map<String, String> properties = Maps.newHashMap();
         for (Map.Entry<String, Object> item : conf.entrySet()) {
             String key = item.getKey();
-            if (!Constants.SEED_URL.equals(key) &&
-                    !Constants.LIST_PAGE_URL_RULE.equals(key) &&
-                    !Constants.POST_PAGE_URL_RULE.equals(key) &&
-                    !Constants.KANON_ITEM.equals(key)) {
+            if (!SEED_URL.equals(key) &&
+                    !LIST_PAGE_URL_RULE.equals(key) &&
+                    !POST_PAGE_URL_RULE.equals(key) &&
+                    !KANON_ITEM.equals(key)) {
                 properties.put(key, String.valueOf(item.getValue()));
             }
         }
@@ -181,8 +185,19 @@ public class Utils {
 
     public static Configuration getHBaseConf(Map conf){
         Configuration config = new Configuration();
-        config.set(HConstants.ZOOKEEPER_QUORUM,String.valueOf(conf.get(Constants.KANON_ZOOKEEPER_QUORUM)));
-        config.set(HConstants.ZOOKEEPER_ZNODE_PARENT,String.valueOf(conf.get(Constants.KANON_ZOOKEEPER_ZNODE)));
+        config.set(HConstants.ZOOKEEPER_QUORUM,String.valueOf(conf.get(KANON_ZOOKEEPER_QUORUM)));
+        config.set(HConstants.ZOOKEEPER_ZNODE_PARENT,String.valueOf(conf.get(KANON_ZOOKEEPER_ZNODE)));
         return config;
+    }
+
+    public static String getRedisConf(Config config){
+        return Joiner.on(":").join(config.getStr(KANON_REDIS_ADDRESS),config.getStr(KANON_REDIS_PORT));
+    }
+
+    public static Long[] getPageRange(long pageNum,long PageSize){
+        Long[] range = new Long[2];
+        range[0] = (pageNum - 1) * PageSize;
+        range[1] = pageNum * PageSize -1;
+        return range;
     }
 }

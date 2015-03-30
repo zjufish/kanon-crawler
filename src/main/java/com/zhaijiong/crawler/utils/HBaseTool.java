@@ -46,9 +46,9 @@ public class HBaseTool {
         if(admin.tableExists(tableName)){
             admin.disableTable(tableName);
             admin.deleteTable(tableName);
-            LOG.info(String.format("success to delete table %",tableName));
+            LOG.info(String.format("success to delete table %s",tableName));
         }else{
-            LOG.info("table % is not exist",tableName);
+            LOG.info(String.format("table %s is not exist",tableName));
         }
     }
 
@@ -67,8 +67,11 @@ public class HBaseTool {
 //        String url = "http://stock.stockstar.com/JC2014091100001864.shtml";
 //        HBaseTool.printRow(table,url);
 
-//        Config config = new Config(args[0]);
-//        HBaseTool tool = new HBaseTool(config);
-//        tool.clearupDatabase();
+        Config config = new Config(args[0]);
+        HBaseTool tool = new HBaseTool(config);
+        tool.clearupDatabase();
+
+        //create 'kanon_crawler_url',{NAME=>'f',VERSIONS=>1,TTL =>604800}
+        //create 'kanon_crawler_data',{NAME=>'f',VERSIONS=>1}
     }
 }

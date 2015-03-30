@@ -44,6 +44,10 @@ public class Config extends HashMap {
         }
     }
 
+    public String getStr(String key){
+        return getStr(key,null);
+    }
+
     public String getValue(String key){
         return String.valueOf(get(key));
     }

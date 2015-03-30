@@ -2,7 +2,6 @@ package com.zhaijiong.crawler.pipeline;
 
 import com.zhaijiong.crawler.Config;
 import com.zhaijiong.crawler.repository.HBaseRepostiory;
-import com.zhaijiong.crawler.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.ResultItems;
@@ -15,15 +14,12 @@ public class HBasePipeline  implements Pipeline {
     private Logger LOG = LoggerFactory.getLogger(HBasePipeline.class);
 
     Pipeline pipeline;
-    HBaseRepostiory repostiory;
+    HBaseRepostiory hBaseRepostiory;
 
     public HBasePipeline(Config config,Pipeline pipeline){
         this.pipeline = pipeline;
-        try {
-            repostiory = new HBaseRepostiory(config);
-        } catch (IOException e) {
-            LOG.error("failed to create hbase repostiory",e);
-        }
+        hBaseRepostiory = new HBaseRepostiory(config);
+        hBaseRepostiory.init();
     }
 
     public HBasePipeline(Config config){
@@ -36,7 +32,7 @@ public class HBasePipeline  implements Pipeline {
             pipeline.process(resultItems,task);
         }
         try {
-            repostiory.save(resultItems);
+            hBaseRepostiory.save(resultItems);
         } catch (IOException e) {
             e.printStackTrace();
         }

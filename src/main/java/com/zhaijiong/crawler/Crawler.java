@@ -2,6 +2,7 @@ package com.zhaijiong.crawler;
 
 import com.google.common.base.Preconditions;
 import com.zhaijiong.crawler.pipeline.HBasePipeline;
+import com.zhaijiong.crawler.pipeline.RedisPipeline;
 import com.zhaijiong.crawler.processor.BaseReportProcessor;
 import com.zhaijiong.crawler.scheduler.HBaseDuplicateRemover;
 import com.zhaijiong.crawler.utils.Constants;
@@ -44,12 +45,13 @@ public class Crawler {
         HBaseDuplicateRemover duplicatedRemover = new HBaseDuplicateRemover(template, config);
         scheduler.setDuplicateRemover(duplicatedRemover);
 
-        HBasePipeline pipeline = new HBasePipeline(config);
+        RedisPipeline redisPipeline = new RedisPipeline(config);
+        HBasePipeline hBasePipeline = new HBasePipeline(config,redisPipeline);
 
         Spider.create(processor)
                 .addUrl(template.getSeedUrl())
                 .thread(config.getInt(Constants.KANON_SPIDER_THREAD_COUNT, 1))
-                .addPipeline(pipeline)
+                .addPipeline(hBasePipeline)
                 .setScheduler(scheduler)
                 .run();
 
