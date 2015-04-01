@@ -29,16 +29,16 @@ public class BaseReportProcessor implements PageProcessor {
         LOG.info("process page "+ page.getUrl());
         if(page.getUrl().toString().equals(template.getSeedUrl())){
             List<String> links = page.getHtml().links().regex(template.getListPageURLRule()).all();
-            LOG.info("seed:"+page.getUrl()+",links:"+links.size());
+//            LOG.info("seed:"+page.getUrl()+",links:"+links.size());
             page.addTargetRequests(links);
 
             links = page.getHtml().links().regex(template.getPostPageUrlRule()).all();
-            LOG.info("list:"+page.getUrl()+",links:"+links.size());
+//            LOG.info("list:"+page.getUrl()+",links:"+links.size());
             page.addTargetRequests(links);
 
         }else if(Pattern.matches(template.getListPageURLRule(),page.getUrl().toString())){
             List<String> links = page.getHtml().links().regex(template.getPostPageUrlRule()).all();
-            LOG.info("list:"+page.getUrl()+",links:"+links.size());
+//            LOG.info("list:"+page.getUrl()+",links:"+links.size());
             page.addTargetRequests(links);
         }else{
             LOG.info("post:"+page.getUrl());

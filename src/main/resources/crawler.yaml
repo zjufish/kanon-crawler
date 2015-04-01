@@ -15,6 +15,7 @@ kanon.redis.pool.maxsize: 8
 kanon.redis.pool.maxidle: 8
 kanon.redis.pool.maxwait: -1
 kanon.redis.timeout: 3000
+kanon.redis.queue.length: 5000
 
 ###############################
 #####     hbase config

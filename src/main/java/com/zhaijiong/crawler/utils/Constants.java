@@ -54,9 +54,9 @@ public class Constants {
 
     public static final String KANON_REDIS_CONTENT_TABLE_DEFAULT = "kanon_redis_content";
 
-    public static final String KANON_REDIS_QUEUE_SIZE = "kanon.redis.queue.size";
+    public static final String KANON_REDIS_QUEUE_LENGTH = "kanon.redis.queue.length";
 
-    public static final int KANON_REDIS_QUEUE_SIZE_DEFAULT = 5000;
+    public static final int KANON_REDIS_QUEUE_LENGTH_DEFAULT = 100;
 
     public static final String KANON_REDIS_POOL_MAXSIZE = "kanon.redis.pool.maxsize";
 

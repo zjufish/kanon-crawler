@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import com.zhaijiong.crawler.pipeline.HBasePipeline;
 import com.zhaijiong.crawler.pipeline.RedisPipeline;
 import com.zhaijiong.crawler.processor.BaseReportProcessor;
+import com.zhaijiong.crawler.repository.RedisUtils;
 import com.zhaijiong.crawler.scheduler.HBaseDuplicateRemover;
 import com.zhaijiong.crawler.utils.Constants;
+import com.zhaijiong.crawler.utils.DBTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Site;
@@ -26,6 +28,10 @@ public class Crawler {
 
     public void run(String... args) throws Exception {
         config = new Config(args[0]);
+
+        DBTool tool = new DBTool(config);
+        tool.clearupDatabase();
+
         List<Template> templates = config.getTemplates();
 
         for (Template template : templates) {
@@ -45,8 +51,9 @@ public class Crawler {
         HBaseDuplicateRemover duplicatedRemover = new HBaseDuplicateRemover(template, config);
         scheduler.setDuplicateRemover(duplicatedRemover);
 
+        RedisUtils.init(config);
         RedisPipeline redisPipeline = new RedisPipeline(config);
-        HBasePipeline hBasePipeline = new HBasePipeline(config,redisPipeline);
+        HBasePipeline hBasePipeline = new HBasePipeline(config, redisPipeline);
 
         Spider.create(processor)
                 .addUrl(template.getSeedUrl())

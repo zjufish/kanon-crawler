@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class HBaseTool {
-    private static final Logger LOG = LoggerFactory.getLogger(HBaseTool.class);
+public class DBTool {
+    private static final Logger LOG = LoggerFactory.getLogger(DBTool.class);
 
     private static HConnection conn;
     private Config config;
 
-    public HBaseTool(Config config){
+    public DBTool(Config config){
         this.config = config;
         try {
             conn = HConnectionManager.createConnection(Utils.getHBaseConf(config));
@@ -52,10 +52,24 @@ public class HBaseTool {
         }
     }
 
+    public void cleanTable(String tableName) throws IOException {
+        HBaseAdmin admin = new HBaseAdmin(Utils.getHBaseConf(config));
+        HTableDescriptor tableDescriptor = admin.getTableDescriptor(tableName.getBytes());
+        if(admin.tableExists(tableName)){
+            admin.disableTable(tableName);
+            admin.deleteTable(tableName);
+            LOG.info(String.format("success to delete table %s",tableName));
+            admin.createTable(tableDescriptor);
+            LOG.info(String.format("success to create table %s",tableName));
+        }else{
+            LOG.info(String.format("table %s is not exist",tableName));
+        }
+    }
+
     public void clearupDatabase(){
         try {
-            deleteTable(config.getStr(Constants.KANON_CRAWLER_URL_TABLE,Constants.KANON_CRAWLER_URL_TABLE_DEFAULT));
-            deleteTable(config.getStr(Constants.KANON_CRAWLER_DATA_TABLE,Constants.KANON_CRAWLER_DATA_TABLE_DEFAULT));
+            cleanTable(config.getStr(Constants.KANON_CRAWLER_URL_TABLE,Constants.KANON_CRAWLER_URL_TABLE_DEFAULT));
+            cleanTable(config.getStr(Constants.KANON_CRAWLER_DATA_TABLE,Constants.KANON_CRAWLER_DATA_TABLE_DEFAULT));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,15 +77,8 @@ public class HBaseTool {
     }
 
     public static void main(String[] args) throws IOException {
-//        String table = Constants.KANON_CRAWLER_URL_TABLE_DEFAULT;
-//        String url = "http://stock.stockstar.com/JC2014091100001864.shtml";
-//        HBaseTool.printRow(table,url);
-
         Config config = new Config(args[0]);
-        HBaseTool tool = new HBaseTool(config);
+        DBTool tool = new DBTool(config);
         tool.clearupDatabase();
-
-        //create 'kanon_crawler_url',{NAME=>'f',VERSIONS=>1,TTL =>604800}
-        //create 'kanon_crawler_data',{NAME=>'f',VERSIONS=>1}
     }
 }

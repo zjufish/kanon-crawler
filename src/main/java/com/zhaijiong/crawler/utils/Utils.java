@@ -11,6 +11,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -135,7 +137,7 @@ public class Utils {
         return urls;
     }
 
-    public static Map<String,Object> getConf(String path) throws IOException {
+    public static Map<String, Object> getConf(String path) throws IOException {
         return readYamlConf(path, true);
     }
 
@@ -170,7 +172,7 @@ public class Utils {
         System.out.println("------");
     }
 
-    public static void printMap(Map map){
+    public static void printMap(Map map) {
         System.out.println("size:" + map.size());
         System.out.println("------");
         for (Object obj : map.entrySet()) {
@@ -183,21 +185,22 @@ public class Utils {
         System.out.println("------");
     }
 
-    public static Configuration getHBaseConf(Map conf){
+    public static Configuration getHBaseConf(Map conf) {
         Configuration config = new Configuration();
-        config.set(HConstants.ZOOKEEPER_QUORUM,String.valueOf(conf.get(KANON_ZOOKEEPER_QUORUM)));
-        config.set(HConstants.ZOOKEEPER_ZNODE_PARENT,String.valueOf(conf.get(KANON_ZOOKEEPER_ZNODE)));
+        config.set(HConstants.ZOOKEEPER_QUORUM, String.valueOf(conf.get(KANON_ZOOKEEPER_QUORUM)));
+        config.set(HConstants.ZOOKEEPER_ZNODE_PARENT, String.valueOf(conf.get(KANON_ZOOKEEPER_ZNODE)));
         return config;
     }
 
-    public static String getRedisConf(Config config){
-        return Joiner.on(":").join(config.getStr(KANON_REDIS_ADDRESS),config.getStr(KANON_REDIS_PORT));
+    public static String getRedisConf(Config config) {
+        return Joiner.on(":").join(config.getStr(KANON_REDIS_ADDRESS), config.getStr(KANON_REDIS_PORT));
     }
 
-    public static Long[] getPageRange(long pageNum,long PageSize){
+    public static Long[] getPageRange(long pageNum, long PageSize) {
         Long[] range = new Long[2];
         range[0] = (pageNum - 1) * PageSize;
-        range[1] = pageNum * PageSize -1;
+        range[1] = pageNum * PageSize - 1;
         return range;
     }
+
 }
