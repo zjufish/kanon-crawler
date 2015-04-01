@@ -8,12 +8,10 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 
 public class RedisPipeline implements Pipeline {
 
-    private Config config;
     private Pipeline pipeline;
     private RedisRepository redisRepository;
 
     public RedisPipeline(Config config, Pipeline pipeline) {
-        this.config = config;
         this.pipeline = pipeline;
         redisRepository = new RedisRepository(config);
         redisRepository.init();
