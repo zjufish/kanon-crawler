@@ -3,6 +3,7 @@ package com.zhaijiong.crawler;
 import com.google.common.base.Preconditions;
 import com.zhaijiong.crawler.pipeline.HBasePipeline;
 import com.zhaijiong.crawler.pipeline.RedisPipeline;
+import com.zhaijiong.crawler.pipeline.SolrPipeline;
 import com.zhaijiong.crawler.processor.BaseReportProcessor;
 import com.zhaijiong.crawler.repository.RedisUtils;
 import com.zhaijiong.crawler.scheduler.HBaseDuplicateRemover;
@@ -53,18 +54,16 @@ public class Crawler {
 
         RedisUtils.init(config);
         RedisPipeline redisPipeline = new RedisPipeline(config);
-        HBasePipeline hBasePipeline = new HBasePipeline(config, redisPipeline);
+        HBasePipeline hbasePipeline = new HBasePipeline(config, redisPipeline);
+        SolrPipeline solrPipeline = new SolrPipeline(config,hbasePipeline);
 
         Spider.create(processor)
                 .addUrl(template.getSeedUrl())
                 .thread(config.getInt(Constants.KANON_SPIDER_THREAD_COUNT, 1))
-                .addPipeline(hBasePipeline)
+                .addPipeline(solrPipeline)
                 .setScheduler(scheduler)
                 .run();
 
-//            if (repository.commit()) {
-//                LOG.info(String.format("index successed,url=%s", template.getSeedUrl()));
-//            }
     }
 
     /**

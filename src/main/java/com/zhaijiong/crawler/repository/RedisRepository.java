@@ -2,16 +2,11 @@ package com.zhaijiong.crawler.repository;
 
 import com.zhaijiong.crawler.Config;
 import com.zhaijiong.crawler.utils.Utils;
-import org.redisson.Redisson;
-import org.redisson.core.RList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.ResultItems;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

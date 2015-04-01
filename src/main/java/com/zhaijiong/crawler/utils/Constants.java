@@ -3,8 +3,6 @@ package com.zhaijiong.crawler.utils;
 public class Constants {
     public static final String PROJECT = "kanon_";
 
-    public static final String SOLR_HOST= "solr.host";
-
     public static final String SEED_URL = "seed.url";
     public static final String POST_PAGE_URL_RULE = "post.url.rule";
     public static final String LIST_PAGE_URL_RULE = "list.url.rule";
@@ -65,4 +63,10 @@ public class Constants {
     public static final String KANON_REDIS_POOL_MAXWAIT = "kanon.redis.pool.maxwait";
 
     public static final String KANON_REDIS_TIMEOUT = "kanon.redis.timeout";
+
+    /**
+     * solr constants
+     */
+    public static final String KANON_SOLR_ADDRESS = "kanon.solr.address";
+
 }
