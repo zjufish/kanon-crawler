@@ -26,7 +26,7 @@ kanon.zookeeper.znode: /hbase
 
 
 ###############################
-#####     webmagic config
+#####     crawler config
 ###############################
 
 kanon.site.retrytimes: 3

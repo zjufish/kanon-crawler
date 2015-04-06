@@ -30,9 +30,6 @@ public class Crawler {
     public void run(String... args) throws Exception {
         config = new Config(args[0]);
 
-        DBTool tool = new DBTool(config);
-        tool.clearupDatabase();
-
         List<Template> templates = config.getTemplates();
 
         for (Template template : templates) {
@@ -53,9 +50,9 @@ public class Crawler {
         scheduler.setDuplicateRemover(duplicatedRemover);
 
         RedisUtils.init(config);
-        RedisPipeline redisPipeline = new RedisPipeline(config);
-        HBasePipeline hbasePipeline = new HBasePipeline(config, redisPipeline);
-        SolrPipeline solrPipeline = new SolrPipeline(config,hbasePipeline);
+        HBasePipeline hbasePipeline = new HBasePipeline(config);
+        RedisPipeline redisPipeline = new RedisPipeline(config, hbasePipeline);
+        SolrPipeline solrPipeline = new SolrPipeline(config,redisPipeline);
 
         Spider.create(processor)
                 .addUrl(template.getSeedUrl())

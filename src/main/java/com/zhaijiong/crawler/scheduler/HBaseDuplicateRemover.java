@@ -66,7 +66,7 @@ public class HBaseDuplicateRemover implements DuplicateRemover {
         } catch (IOException e) {
             LOG.error("failed to check request url:"+request.getUrl(),e);
         }
-        LOG.info(String.format("%s, check %s, url=%s",counter.get(),isDuplicate,request.getUrl()));
+//        LOG.info(String.format("%s, check %s, url=%s",counter.get(),isDuplicate,request.getUrl()));
         return isDuplicate;
     }
 

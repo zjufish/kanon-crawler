@@ -12,8 +12,8 @@
         <jdk>1.8</jdk>
         <hbase.version>0.94.27</hbase.version>
         <jedis.version>2.7.0</jedis.version>
-        <solr.version>5.0.0</solr.version>
-        <solr-solrj.version>5.0.0</solr-solrj.version>
+        <solr.version>4.9.0</solr.version>
+        <solr-solrj.version>4.9.0</solr-solrj.version>
     </properties>
 
     <dependencies>
@@ -100,6 +100,37 @@
             <!--<artifactId>solr-core</artifactId>-->
             <!--<version>${solr.version}</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>4.10.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>4.10.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chenlb.mmseg4j</groupId>
+            <artifactId>mmseg4j-solr</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.chenlb.mmseg4j</groupId>-->
+            <!--<artifactId>mmseg4j-core</artifactId>-->
+            <!--<version>1.10.0</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.wltea</groupId>
+            <artifactId>IKAnalyzer</artifactId>
+            <version>2012FF_u1</version>
+            <scope>system</scope>
+            <systemPath>/home/eryk/workspaces/kanon-crawler/lib/IKAnalyzer2012FF_u1.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
@@ -129,4 +160,10 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>OSChina Central</id>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+        </repository>
+    </repositories>
 </project>
