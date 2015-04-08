@@ -29,6 +29,14 @@ public class Constants {
 
     public static final String KANON_CRAWLER_DATA_TABLE_DEFAULT = "kanon_crawler_data";
 
+    public static final String KANON_STOCK_TABLE = "kanon.stock.table";
+
+    public static final String KANON_STOCK_TABLE_DEFAULT = "kanon_stock";
+
+    //存储股票分类信息，包括地区、行业、概念
+    public static final String KANON_STOCK_CLASSIFY = "kanon.stock.classify.table";
+
+    public static final String KANON_STOCK_CLASSIFY_DEFAULT = "kanon_stock_classify";
     /**
      * hbase constants
      */
